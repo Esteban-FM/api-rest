@@ -1,8 +1,13 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import conectDB from './config/dataBase.js';
 
 // Cargar variables de entorno
 dotenv.config();
+
+// Conectar a MongoDB, conecta a la base de datos antes de iniciar el servidor,
+// si no se conecta, el servidor no se inicia
+conectDB();
 
 const PORT = process.env.PORT;
 
