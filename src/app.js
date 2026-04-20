@@ -12,14 +12,14 @@ const PORT = process.env.PORT;
 
 const app = express();
 
-// Middleware to parse JSON
+//? Middleware to parse JSON
 app.use(express.json());
 
 
 //Ruta de prueba
 // get es la peticion que hace el navegador hacia el servidor
 app.get('/', (req, res) => {
-    res.send('hola!')
+    res.send('hola, clase continuando con nuestra api');
 });
 
 

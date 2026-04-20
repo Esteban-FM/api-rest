@@ -15,3 +15,8 @@ api-rest/
 ├── .env # Variables de entorno
 ├── package.json
 ├── .gitignore
+
+Create
+Read
+Update
+Delete
