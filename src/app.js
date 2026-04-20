@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import conectDB from './config/dataBase.js';
+import taskRoutes from './routes/task.routes.js';
+
 
 // Cargar variables de entorno
 dotenv.config();
@@ -23,9 +25,13 @@ app.use(express.json());
 
 //Ruta de prueba
 // get es la peticion que hace el navegador hacia el servidor
-app.get('/', (req, res) => {
-    res.send('hola, clase continuando con nuestra api');
-});
+
+// app.get('/', (req, res) => {
+//     res.send('hola, clase continuando con nuestra api');
+// });
+
+//Ruta desde el archivo de rutas
+app.use('/', taskRoutes); // Usar las rutas de tareas con el prefijo /api
 
 
 app.listen(PORT, () => {
