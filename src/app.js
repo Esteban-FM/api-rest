@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import conectDB from './config/dataBase.js';
 import taskRoutes from './routes/task.routes.js';
 
+import path from 'path'; // Para trabajar con rutas de archivos como el local
+import { fileURLToPath } from 'url'; // Para obtener la ruta del directorio actual
 
 
 // Cargar variables de entorno
@@ -19,10 +21,15 @@ const PORT = process.env.PORT;
 
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url); // Obtener la ruta del archivo actual
+const __dirname = path.dirname(__filename); // Obtener el directorio del archivo actual    
+
+
+
 
 //? Middleware to parse JSON
 app.use(express.json());
-
+app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos estáticos desde la carpeta "public"
 
 //Ruta de prueba
 // get es la peticion que hace el navegador hacia el servidor

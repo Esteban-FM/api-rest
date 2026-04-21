@@ -35,12 +35,52 @@ router.post('/tasks', async (req, res) => {
 });
 
 
+// Ruta para obtener una tarea por ID
+router.get('/tasks/:id', async (req, res) => { // El :id es un parámetro de ruta que representa el ID de la tarea que queremos obtener
+    try {
+        const task = await Task.findById(req.params.id); // Estoy esperando a que se ejecute la consulta a la base de datos para obtener la tarea por su ID
+        if (!task) { //si task es nulo o undefined, significa que no se encontró la tarea con el ID proporcionado, por lo que el if se ejecuta si (!task) que significa "false"
+            return res.status(404).json({ message: 'Tarea no encontrada' }); // Si no se encuentra la tarea, enviar un mensaje de error con el código de estado 404 (No Encontrado)
+        }
+        res.json(task); // Enviar la tarea obtenida como respuesta en formato JSON
+    } catch (error) {
+        res.status(500).json({ message: error.message }); // En caso de error, enviar un mensaje de error con el código de estado 500 (Error Interno del Servidor)
+    }
+});
+
+
 
 // Ruta para actualizar una tarea por ID
-//UPDARE (PUT)
+//UPDATE (PUT)
+router.put('/tasks/:id', async (req, res) => {
+    try {
+        const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true }); // Estoy esperando a que se ejecute la consulta a la base de datos para actualizar la tarea por su ID, el { new: true } es para que me devuelva la tarea actualizada
+        if (!task) { //si task es nulo o undefined, significa que no se encontró la tarea con el ID proporcionado, por lo que el if se ejecuta si (!task) que significa "false"
+            return res.status(404).json({ message: 'Tarea no encontrada' }); // Si no se encuentra la tarea, enviar un mensaje de error con el código de estado 404 (No Encontrado)
+        }
+        res.json(task); // Enviar la tarea actualizada como respuesta en formato JSON
+    } catch (error) {
+        res.status(500).json({ message: error.message }); // En caso de error, enviar un mensaje de error con el código de estado 500 (Error Interno del Servidor)
+    }
+});
+
+
+
+
 
 //Ruta para eliminar una tarea por ID
 //DELETE (DELETE)
+router.delete('/tasks/:id', async (req, res) => {
+    try {
+        const task = await Task.findByIdAndDelete(req.params.id); // Estoy esperando a que se ejecute la consulta a la base de datos para eliminar la tarea por su ID
+        if (!task) { //si task es nulo o undefined, significa que no se encontró la tarea con el ID proporcionado, por lo que el if se ejecuta si (!task) que significa "false"
+            return res.status(404).json({ message: 'Tarea no encontrada' }); // Si no se encuentra la tarea, enviar un mensaje de error con el código de estado 404 (No Encontrado)
+        }
+        res.json({ message: 'Tarea eliminada' }); // Enviar un mensaje de éxito como respuesta en formato JSON
+    } catch (error) {
+        res.status(500).json({ message: error.message }); // En caso de error, enviar un mensaje de error con el código de estado 500 (Error Interno del Servidor)
+    }
+});
 
 
 
